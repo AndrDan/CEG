@@ -1,13 +1,11 @@
-package com.example.lenovo.ceg;
+package com.example.lenovo.ceg.CEX;
+
+import com.example.lenovo.ceg.Exchanges.CEXAPI.CEX;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-
-/**
- * Created by student on 16.06.18.
- */
 
 public interface GetInterfaceCEX {
     @GET("/api/order_book/{symbol1}/{symbol2}/")

@@ -5,19 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
+    <Button
+        android:id="@+id/cex_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="cex" />
+
+    <Button
+        android:id="@+id/ceg_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        />
-
-    <TextView
-        android:id="@+id/chartDataView"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center"/>
+        android:onClick="onClick"
+        android:text="exchanges" />
 
 </FrameLayout>
