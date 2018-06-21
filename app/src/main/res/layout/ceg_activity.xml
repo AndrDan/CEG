@@ -6,17 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".CEX.CexActivity">
+    tools:context=".CEG.CegActivity">
 
     <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
+        android:id="@+id/barChart_ceg"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:background="@color/barChart"
         />
 
     <TextView
-        android:id="@+id/chartDataView"
+        android:id="@+id/chartDataView_ceg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="430dp"

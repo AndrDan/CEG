@@ -10,17 +10,18 @@
 
     <Button
         android:id="@+id/cex_btn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
+        android:layout_gravity="start|center_horizontal"
         android:text="cex" />
 
     <Button
         android:id="@+id/ceg_btn"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:onClick="onClick"
+        android:layout_gravity="end|center_horizontal"
         android:text="exchanges" />
 
 </FrameLayout>

@@ -93,8 +93,8 @@ public class CegActivity extends AppCompatActivity {
                         chartData.addDataSet(askChart);
                         chart.setData(chartData);
                         chart.setDescription(null);
-                        chart.setPinchZoom(false);
-                        chart.setDoubleTapToZoomEnabled(false);
+                        chartData.setValueTextColor(Color.BLUE);
+                        chartData.setValueTextSize(10);
                         chart.getLegend().setTextSize(12);
 
                         chart.invalidate();

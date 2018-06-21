@@ -1,4 +1,4 @@
-package com.example.lenovo.ceg;
+package com.example.lenovo.ceg.Exchanges.CEXAPI;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
