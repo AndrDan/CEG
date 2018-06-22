@@ -1,9 +1,9 @@
-package com.example.lenovo.ceg.Exchanges.BitfinexAPI;
+package com.example.lenovo.ceg.Exchanges.Exchanges_API.BitfinexAPI;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Bitfinex {
+public class Bitfinex_API {
 
     @SerializedName("mid")
     @Expose

@@ -1,32 +1,23 @@
 package com.example.lenovo.ceg.CEG;
 
+import android.app.Activity;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 
-import com.example.lenovo.ceg.CEX.GetInterfaceCEX;
-import com.example.lenovo.ceg.Exchanges.CEXAPI.CEX;
 import com.example.lenovo.ceg.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class CegActivity extends AppCompatActivity {
+public class CegActivity extends Activity {
     public Timer timer = new Timer();
 
     @Override
@@ -37,7 +28,7 @@ public class CegActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                final MainOrderBook data = new MainOrderBook();
+                MainOrderBook data = new MainOrderBook();
                 String listStr;
                 final List<BarEntry> bidEntries = new ArrayList<>();
                 final List<BarEntry> askEntries = new ArrayList<>();
@@ -46,7 +37,7 @@ public class CegActivity extends AppCompatActivity {
 
                 //Log.e("MainOrderBook", data.getTest1().toString());
                 float maxQuan = 0;
-                float percentageChange = 0;
+                float percentageChange;
 
                 for (List<Float> i : buyList) {
                     Float quan = i.get(1);
@@ -78,10 +69,10 @@ public class CegActivity extends AppCompatActivity {
                         tv.setText(finalListStr);
 
                         BarDataSet bidChart = new BarDataSet(bidEntries, "Bid");
-                        bidChart.setColor(Color.RED);
+                        bidChart.setColor(Color.parseColor("#b60f13"));
 
                         BarDataSet askChart = new  BarDataSet(askEntries, "Ask");
-                        askChart.setColor(Color.BLACK);
+                        askChart.setColor(Color.parseColor("#0523c1"));
                         askChart.setValueTextColor(Color.parseColor("#FFFFFFFF"));
 
                         BarChart chart = findViewById(R.id.barChart_ceg);
@@ -101,9 +92,8 @@ public class CegActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 0, 5000);
+        }, 0, 3000);
     }
-
 
     @Override
     protected void onStop(){

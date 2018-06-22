@@ -1,11 +1,11 @@
-package com.example.lenovo.ceg.Exchanges.BitstampAPI;
+package com.example.lenovo.ceg.Exchanges.Exchanges_API.BitstampAPI;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Bitstamp {
+public class Bitstamp_API {
 
     @SerializedName("high")
     @Expose

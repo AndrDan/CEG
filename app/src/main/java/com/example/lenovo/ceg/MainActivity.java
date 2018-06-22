@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.lenovo.ceg.CEG.CegActivity;
-import com.example.lenovo.ceg.CEX.CexActivity;
+import com.example.lenovo.ceg.Exchanges.Exchanges_Activity.BitstampActivity;
+import com.example.lenovo.ceg.Exchanges.Exchanges_Activity.CexActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         if (view.getId() == R.id.cex_btn) {
             Intent intentCex = new Intent(this, CexActivity.class);
             startActivity(intentCex);
+        }
+        if (view.getId() == R.id.bitstamp_btn) {
+            Intent intentBitstamp = new Intent(this, BitstampActivity.class);
+            startActivity(intentBitstamp);
         }
     }
 }

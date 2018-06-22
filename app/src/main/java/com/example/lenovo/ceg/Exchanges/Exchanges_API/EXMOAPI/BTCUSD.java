@@ -1,5 +1,5 @@
 
-package com.example.lenovo.ceg.Exchanges.EXMOAPI;
+package com.example.lenovo.ceg.Exchanges.Exchanges_API.EXMOAPI;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

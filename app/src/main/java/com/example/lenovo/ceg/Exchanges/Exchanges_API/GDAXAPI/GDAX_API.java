@@ -1,10 +1,10 @@
-package com.example.lenovo.ceg.Exchanges.GDAXAPI;
+package com.example.lenovo.ceg.Exchanges.Exchanges_API.GDAXAPI;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GDAX {
+public class GDAX_API {
 
     @SerializedName("sequence")
     @Expose

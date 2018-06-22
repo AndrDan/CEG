@@ -2,13 +2,13 @@ package com.example.lenovo.ceg.CEG;
 
 import android.util.Log;
 
-import com.example.lenovo.ceg.CEX.GetInterfaceCEX;
-import com.example.lenovo.ceg.Exchanges.BitstampAPI.Bitstamp;
-import com.example.lenovo.ceg.Exchanges.CEXAPI.CEX;
-import com.example.lenovo.ceg.Exchanges.CoinsBankAPI.CoinsBank;
-import com.example.lenovo.ceg.Exchanges.EXMOAPI.EXMO;
-import com.example.lenovo.ceg.Exchanges.GDAXAPI.GDAX;
-import com.example.lenovo.ceg.Exchanges.LakeBTCAPI.LakeBTC;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.BitstampAPI.Bitstamp_API;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.CEXAPI.CEX_API;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.CoinsBankAPI.CoinsBank_API;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.EXMOAPI.EXMO_API;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.GDAXAPI.GDAX_API;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.LakeBTCAPI.LakeBTC_API;
+import com.example.lenovo.ceg.Exchanges.GetInterfaceExchanges;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class MainOrderBook {
         }
     }
 
-    private CEX getCexResponse() {
+    private CEX_API getCexResponse() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://cex.io")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -60,20 +60,20 @@ public class MainOrderBook {
         String symbol1="BTC";
         String symbol2="USD";
         String depth="10";
-        Call<CEX> responseCall = getInterface.getCexData(symbol1, symbol2, depth);
-        Response<CEX> res;
-        CEX cexResponse = null;
+        Call<CEX_API> responseCall = getInterface.getCexData(symbol1, symbol2, depth);
+        Response<CEX_API> res;
+        CEX_API cexAPIResponse = null;
         try {
             res = responseCall.execute();
-            cexResponse = res.body();
+            cexAPIResponse = res.body();
         } catch (IOException e) {
             Log.e("getCexResponse", e.toString());
         }
 
-        return cexResponse;
+        return cexAPIResponse;
     }
 
-    /*private Bitstamp getBitstampResponse() {
+    private Bitstamp_API getBitstampResponse() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.bitstamp.net")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -81,9 +81,9 @@ public class MainOrderBook {
         GetInterfaceExchanges getInterface = retrofit.create(GetInterfaceExchanges.class);
 
         String symbol1="btcusd";
-        Call<Bitstamp> responseCall = getInterface.getBitstampData(symbol1);
-        Response<Bitstamp> res;
-        Bitstamp bitstampResponse = null;
+        Call<Bitstamp_API> responseCall = getInterface.getBitstampData(symbol1);
+        Response<Bitstamp_API> res;
+        Bitstamp_API bitstampResponse = null;
         try {
             res = responseCall.execute();
             bitstampResponse = res.body();
@@ -92,9 +92,9 @@ public class MainOrderBook {
         }
 
         return bitstampResponse;
-    }*/
+    }
 
-    private CoinsBank getCoinsBankResponse() {
+    private CoinsBank_API getCoinsBankResponse() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://coinsbank.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -102,9 +102,9 @@ public class MainOrderBook {
         GetInterfaceExchanges getInterface = retrofit.create(GetInterfaceExchanges.class);
 
         String symbol1="BTCUSD";
-        Call<CoinsBank> responseCall = getInterface.getCoinsBankData(symbol1);
-        Response<CoinsBank> res;
-        CoinsBank coinsBankResponse = null;
+        Call<CoinsBank_API> responseCall = getInterface.getCoinsBankData(symbol1);
+        Response<CoinsBank_API> res;
+        CoinsBank_API coinsBankResponse = null;
         try {
             res = responseCall.execute();
             coinsBankResponse  = res.body();
@@ -115,7 +115,7 @@ public class MainOrderBook {
         return coinsBankResponse ;
     }
 
-    private EXMO getExmoResponse() {
+    private EXMO_API getExmoResponse() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.exmo.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -124,20 +124,20 @@ public class MainOrderBook {
 
         String pair = "BTC_USD";
         String limit = "10";
-        Call<EXMO> responseCall = getInterface.getExmoData(pair,limit);
-        Response<EXMO> res;
-        EXMO exmoResponse = null;
+        Call<EXMO_API> responseCall = getInterface.getExmoData(pair,limit);
+        Response<EXMO_API> res;
+        EXMO_API exmoAPIResponse = null;
         try {
             res = responseCall.execute();
-            exmoResponse = res.body();
+            exmoAPIResponse = res.body();
         } catch (IOException e) {
             Log.e("getExmoResponse ", e.toString());
         }
 
-        return exmoResponse ;
+        return exmoAPIResponse;
     }
 
-    private GDAX getGdaxResponse() {
+    private GDAX_API getGdaxResponse() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.gdax.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -146,20 +146,20 @@ public class MainOrderBook {
 
         String symbol1 = "BTC-USD";
         String level = "2";
-        Call<GDAX> responseCall = getInterface.getGdaxData(symbol1, level);
-        Response<GDAX> res;
-        GDAX gdaxResponse = null;
+        Call<GDAX_API> responseCall = getInterface.getGdaxData(symbol1, level);
+        Response<GDAX_API> res;
+        GDAX_API gdaxAPIResponse = null;
         try {
             res = responseCall.execute();
-            gdaxResponse = res.body();
+            gdaxAPIResponse = res.body();
         } catch (IOException e) {
             Log.e("getExmoResponse ", e.toString());
         }
 
-        return gdaxResponse ;
+        return gdaxAPIResponse;
     }
 
-    private LakeBTC getLakeBTCResponse() {
+    private LakeBTC_API getLakeBTCResponse() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.lakebtc.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -167,61 +167,61 @@ public class MainOrderBook {
         GetInterfaceExchanges getInterface = retrofit.create(GetInterfaceExchanges.class);
 
         String symbol = "btcusd";
-        Call<LakeBTC> responseCall = getInterface.getLakeBTCData(symbol);
-        Response<LakeBTC> res;
-        LakeBTC lakeBTCResponse = null;
+        Call<LakeBTC_API> responseCall = getInterface.getLakeBTCData(symbol);
+        Response<LakeBTC_API> res;
+        LakeBTC_API lakeBTCAPIResponse = null;
         try {
             res = responseCall.execute();
-            lakeBTCResponse = res.body();
+            lakeBTCAPIResponse = res.body();
         } catch (IOException e) {
             Log.e("getExmoResponse ", e.toString());
         }
 
-        return lakeBTCResponse;
+        return lakeBTCAPIResponse;
     }
 
     public List<List<Float>> getTest1() {
-        CEX cex = getCexResponse();
-        //Bitstamp bitstamp = getBitstampResponse();
-        CoinsBank coinsBank = getCoinsBankResponse();
-        EXMO exmo = getExmoResponse();
-        GDAX gdax = getGdaxResponse();
-        LakeBTC lakeBTC = getLakeBTCResponse();
-        addAllIfNotNull(test1, lakeBTC.getBids());
+        CEX_API cexAPI = getCexResponse();
+        Bitstamp_API bitstamp = getBitstampResponse();
+        CoinsBank_API coinsBank = getCoinsBankResponse();
+        EXMO_API exmoAPI = getExmoResponse();
+        GDAX_API gdaxAPI = getGdaxResponse();
+        LakeBTC_API lakeBTCAPI = getLakeBTCResponse();
+        addAllIfNotNull(test1, lakeBTCAPI.getBids());
         return test1;
     }
 
     public List<List<Float>> getBids() {
-        CEX cex = getCexResponse();
-        //Bitstamp bitstamp = getBitstampResponse();
-        CoinsBank coinsBank = getCoinsBankResponse();
-        EXMO exmo = getExmoResponse();
-        GDAX gdax = getGdaxResponse();
-        LakeBTC lakeBTC = getLakeBTCResponse();
-        addAllIfNotNull(bids, cex.getBids());
-        //addAllIfNotNull(bids, bitstamp.getBids());
+        CEX_API cexAPI = getCexResponse();
+        Bitstamp_API bitstamp = getBitstampResponse();
+        CoinsBank_API coinsBank = getCoinsBankResponse();
+        EXMO_API exmoAPI = getExmoResponse();
+        GDAX_API gdaxAPI = getGdaxResponse();
+        LakeBTC_API lakeBTCAPI = getLakeBTCResponse();
+        addAllIfNotNull(bids, cexAPI.getBids());
+        addAllIfNotNull(bids, bitstamp.getBids());
         addAllIfNotNull(bids, coinsBank.getBids());
-        addAllIfNotNull(bids, exmo.getBTCUSD().getBid());
-        addAllIfNotNull(bids, gdax.getBids());
-        addAllIfNotNull(bids, lakeBTC.getBids());
+        addAllIfNotNull(bids, exmoAPI.getBTCUSD().getBid());
+        addAllIfNotNull(bids, gdaxAPI.getBids());
+        addAllIfNotNull(bids, lakeBTCAPI.getBids());
 
         Collections.sort(bids, new ListFloatReverseComparator());
         bids.subList(100, bids.size()).clear();
         return bids;
     }
     public List<List<Float>> getAsks() {
-        CEX cex = getCexResponse();
-        //Bitstamp bitstamp = getBitstampResponse();
-        CoinsBank coinsBank = getCoinsBankResponse();
-        EXMO exmo = getExmoResponse();
-        GDAX gdax = getGdaxResponse();
-        LakeBTC lakeBTC = getLakeBTCResponse();
-        addAllIfNotNull(asks, cex.getAsks());
-        //addAllIfNotNull(asks, bitstamp.getAsks());
+        CEX_API cexAPI = getCexResponse();
+        Bitstamp_API bitstamp = getBitstampResponse();
+        CoinsBank_API coinsBank = getCoinsBankResponse();
+        EXMO_API exmoAPI = getExmoResponse();
+        GDAX_API gdaxAPI = getGdaxResponse();
+        LakeBTC_API lakeBTCAPI = getLakeBTCResponse();
+        addAllIfNotNull(asks, cexAPI.getAsks());
+        addAllIfNotNull(asks, bitstamp.getAsks());
         addAllIfNotNull(asks, coinsBank.getAsks());
-        addAllIfNotNull(asks, exmo.getBTCUSD().getAsk());
-        addAllIfNotNull(asks, gdax.getAsks());
-        addAllIfNotNull(asks, lakeBTC.getAsks());
+        addAllIfNotNull(asks, exmoAPI.getBTCUSD().getAsk());
+        addAllIfNotNull(asks, gdaxAPI.getAsks());
+        addAllIfNotNull(asks, lakeBTCAPI.getAsks());
 
         Collections.sort(asks, new ListFloatComparator());
         asks.subList(100, asks.size()).clear();

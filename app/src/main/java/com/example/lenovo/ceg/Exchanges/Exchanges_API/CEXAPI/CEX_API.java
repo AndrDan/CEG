@@ -1,10 +1,10 @@
-package com.example.lenovo.ceg.Exchanges.CEXAPI;
+package com.example.lenovo.ceg.Exchanges.Exchanges_API.CEXAPI;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CEX {
+public class CEX_API {
 
     @SerializedName("timestamp")
     @Expose

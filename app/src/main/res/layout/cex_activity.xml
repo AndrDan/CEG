@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    tools:context=".CEX.CexActivity">
+    android:background="@color/colorMainBackground"
+    tools:context=".Exchanges.Exchanges_Activity.CexActivity">
+
+    <TextView
+        android:id="@+id/exchangeName_cex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/chartDataText"
+        android:paddingBottom="8dp"
+        android:textSize="30dp"
+        android:text="CEX"/>
 
     <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
+        android:id="@+id/barChart_cex"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="360dp"
+        android:layout_below="@id/exchangeName_cex"
         android:background="@color/barChart"
         />
 
     <TextView
-        android:id="@+id/chartDataView"
+        android:id="@+id/chartDataView_cex"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="430dp"
-        android:gravity="center"
+        android:layout_height="match_parent"
+        android:layout_below="@id/barChart_cex"
         android:textColor="@color/chartDataText"
+        android:textAlignment="center"
+        android:paddingTop="15dp"
         android:textSize="20dp"/>
 
-</FrameLayout>
+</RelativeLayout>

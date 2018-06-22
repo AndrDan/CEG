@@ -1,14 +1,14 @@
-package com.example.lenovo.ceg.CEX;
+package com.example.lenovo.ceg.Exchanges.Exchanges_Activity;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-
-import com.example.lenovo.ceg.Exchanges.CEXAPI.CEX;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.BitstampAPI.Bitstamp_API;
+import com.example.lenovo.ceg.Exchanges.GetInterfaceExchanges;
 import com.example.lenovo.ceg.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -24,48 +24,43 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CexActivity extends AppCompatActivity {
+public class BitstampActivity extends Activity {
+    GetInterfaceExchanges getInterface;
 
-    public GetInterfaceCEX getInterface;
-    public CEX data;
-    public String symbol1="BTC";
-    public String symbol2="USD";
-    public String depth="14";
-    Response<CEX> res;
-    public CEXAPI cexAPI = new CEXAPI();
+    public BitstampAT bitstampAT = new BitstampAT();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cex_activity);
+        setContentView(R.layout.bitstamp_activity);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://cex.io")
+                .baseUrl("https://www.bitstamp.net")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        getInterface = retrofit.create(GetInterfaceCEX.class);
-        cexAPI.execute();
+        getInterface = retrofit.create(GetInterfaceExchanges.class);
+        bitstampAT.execute();
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-        if(cexAPI == null) {
-            cexAPI.execute();
+        if(bitstampAT == null) {
+            bitstampAT.execute();
         }
     }
 
-    class CEXAPI extends AsyncTask<Void, Response<CEX>, Response<CEX>> {
+    class BitstampAT extends AsyncTask<Void, Response<Bitstamp_API>, Response<Bitstamp_API>> {
 
         @Override
-        protected Response<CEX> doInBackground(Void... voids) {
-            res = null;
+        protected Response<Bitstamp_API> doInBackground(Void... voids) {
+            Response<Bitstamp_API> res = null;
             while (!isCancelled()) {
                 try {
-                    Call<CEX> responseCall = getInterface.getData(symbol1, symbol2, depth);
+                    String symbol1 = "btcusd";
+                    Call<Bitstamp_API> responseCall = getInterface.getBitstampData(symbol1);
                     res = responseCall.execute();
                     publishProgress(res);
                     Thread.sleep(3000);
-                    Log.d("CYCLE", "+1");
                 } catch (IOException | InterruptedException e) {
                     Log.e("ERROR", e.toString());
                 }
@@ -74,12 +69,11 @@ public class CexActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Response<CEX>... CEXResponse) {
-            super.onProgressUpdate(CEXResponse);
-            data = CEXResponse[0].body();
-            TextView tv = findViewById(R.id.chartDataView);
-
-            String listStr = new String();
+        protected void onProgressUpdate(Response<Bitstamp_API>... BitstampResponse) {
+            super.onProgressUpdate(BitstampResponse);
+            Bitstamp_API data = BitstampResponse[0].body();
+            TextView tv = findViewById(R.id.chartDataView_bitstamp);
+            String listStr;
             List<BarEntry> bidEntries = new ArrayList<>();
             List<BarEntry> askEntries = new ArrayList<>();
             List<List<Float>> buyList = data.getBids();
@@ -88,7 +82,7 @@ public class CexActivity extends AppCompatActivity {
             float maxQuan = 0;
             float minSell = 999999999;
             float maxBuy = 0;
-            float percentageChange = 0;
+            float percentageChange;
 
             for (List<Float> i : buyList) {
                 Float quan = i.get(1);
@@ -120,19 +114,19 @@ public class CexActivity extends AppCompatActivity {
             tv.setText(listStr);
 
             BarDataSet bidChart = new BarDataSet(bidEntries, "Bid");
-            bidChart.setColor(Color.RED);
+            bidChart.setColor(Color.parseColor("#b60f13"));
 
             BarDataSet askChart = new  BarDataSet(askEntries, "Ask");
-            askChart.setColor(Color.BLACK);
+            askChart.setColor(Color.parseColor("#0523c1"));
 
-            BarChart chart = findViewById(R.id.barChart);
+            BarChart chart = findViewById(R.id.barChart_bitstamp);
 
             BarData chartData = new BarData();
 
             chartData.setBarWidth(1f);
             chartData.addDataSet(bidChart);
             chartData.addDataSet(askChart);
-            chartData.setValueTextColor(Color.BLUE);
+            chartData.setValueTextColor(Color.TRANSPARENT);
             chartData.setValueTextSize(10);
             chart.setData(chartData);
             chart.setDescription(null);
@@ -142,16 +136,16 @@ public class CexActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Response<CEX> CEXResponse) {
-            super.onPostExecute(CEXResponse);
+        protected void onPostExecute(Response<Bitstamp_API> BitstampResponse) {
+            super.onPostExecute(BitstampResponse);
         }
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        if(cexAPI != null){
-            cexAPI.cancel(true);
+        if(bitstampAT != null){
+            bitstampAT.cancel(true);
         }
     }
 }

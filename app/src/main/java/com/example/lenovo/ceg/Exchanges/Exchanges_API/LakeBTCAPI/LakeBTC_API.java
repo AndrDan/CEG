@@ -1,25 +1,17 @@
-package com.example.lenovo.ceg.Exchanges.CoinsBankAPI;
+package com.example.lenovo.ceg.Exchanges.Exchanges_API.LakeBTCAPI;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CoinsBank {
+public class LakeBTC_API {
 
-    @SerializedName("bids")
-    @Expose
-    private List<List<Float>> bids = null;
     @SerializedName("asks")
     @Expose
     private List<List<Float>> asks = null;
-
-    public List<List<Float>> getBids() {
-        return bids;
-    }
-
-    public void setBids(List<List<Float>> bids) {
-        this.bids = bids;
-    }
+    @SerializedName("bids")
+    @Expose
+    private List<List<Float>> bids = null;
 
     public List<List<Float>> getAsks() {
         return asks;
@@ -27,6 +19,14 @@ public class CoinsBank {
 
     public void setAsks(List<List<Float>> asks) {
         this.asks = asks;
+    }
+
+    public List<List<Float>> getBids() {
+        return bids;
+    }
+
+    public void setBids(List<List<Float>> bids) {
+        this.bids = bids;
     }
 
 }

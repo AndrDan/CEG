@@ -6,35 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorMainBackground"
-    tools:context=".CEG.CegActivity">
-
-    <TextView
-        android:id="@+id/exchangeName_ceg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/chartDataText"
-        android:paddingBottom="8dp"
-        android:textSize="30dp"
-        android:text="Exchanges"/>
-
+    tools:context=".Exchanges.Exchanges_Activity.BitstampActivity">
 
     <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart_ceg"
+        android:id="@+id/barChart_bitstamp"
         android:layout_width="match_parent"
         android:layout_height="360dp"
-        android:layout_below="@id/exchangeName_ceg"
         android:background="@color/barChart"
         />
 
     <TextView
-        android:id="@+id/chartDataView_ceg"
+        android:id="@+id/chartDataView_bitstamp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/barChart_ceg"
+        android:layout_below="@id/barChart_bitstamp"
         android:textColor="@color/chartDataText"
         android:textAlignment="center"
-        android:paddingTop="15dp"
+        android:paddingTop="25dp"
         android:textSize="20dp"/>
 
 </RelativeLayout>

@@ -1,10 +1,10 @@
 
-package com.example.lenovo.ceg.Exchanges.EXMOAPI;
+package com.example.lenovo.ceg.Exchanges.Exchanges_API.EXMOAPI;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class EXMO {
+public class EXMO_API {
 
     @SerializedName("BTC_USD")
     @Expose
