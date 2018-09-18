@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-
-import com.example.lenovo.ceg.Exchanges.GetInterfaceExchanges;
 import com.example.lenovo.ceg.Exchanges.Exchanges_API.CEXAPI.CEX_API;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.EXMOAPI.EXMO_API;
+import com.example.lenovo.ceg.Exchanges.GetInterfaceExchanges;
 import com.example.lenovo.ceg.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -25,42 +25,41 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CexActivity extends Activity {
+public class EXMOActivity extends Activity {
 
     GetInterfaceExchanges getInterface;
-    public CexAT cexAT = new CexAT();
+    public ExmoAT exmoAT = new ExmoAT();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cex_activity);
+        setContentView(R.layout.exmo_activity);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://cex.io")
+                .baseUrl("https://api.exmo.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         getInterface = retrofit.create(GetInterfaceExchanges.class);
-        cexAT.execute();
+        exmoAT.execute();
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-        if(cexAT == null) {
-            cexAT.execute();
+        if(exmoAT == null) {
+            exmoAT.execute();
         }
     }
 
-    class CexAT extends AsyncTask<Void, Response<CEX_API>, Response<CEX_API>> {
+    class ExmoAT extends AsyncTask<Void, Response<EXMO_API>, Response<EXMO_API>> {
 
         @Override
-        protected Response<CEX_API> doInBackground(Void... voids) {
-            Response<CEX_API> res = null;
+        protected Response<EXMO_API> doInBackground(Void... voids) {
+            Response<EXMO_API> res = null;
             while (!isCancelled()) {
                 try {
-                    String symbol1="BTC";
-                    String symbol2="USD";
-                    String depth="20";
-                    Call<CEX_API> responseCall = getInterface.getCexData(symbol1, symbol2, depth);
+                    String pair = "BTC_USD";
+                    String limit = "20";
+                    Call<EXMO_API> responseCall = getInterface.getExmoData(pair,limit);
                     res = responseCall.execute();
                     publishProgress(res);
                     Thread.sleep(3000);
@@ -72,15 +71,15 @@ public class CexActivity extends Activity {
         }
 
         @Override
-        protected void onProgressUpdate(Response<CEX_API>... CEXResponse) {
-            super.onProgressUpdate(CEXResponse);
-            CEX_API data = CEXResponse[0].body();
-            TextView tv = findViewById(R.id.chartDataView_cex);
+        protected void onProgressUpdate(Response<EXMO_API>... ExmoResponse) {
+            super.onProgressUpdate(ExmoResponse);
+            EXMO_API data = ExmoResponse[0].body();
+            TextView tv = findViewById(R.id.chartDataView_exmo);
             String listStr;
             List<BarEntry> bidEntries = new ArrayList<>();
             List<BarEntry> askEntries = new ArrayList<>();
-            List<List<Float>> buyList = data.getBids();
-            List<List<Float>> sellList = data.getAsks();
+            List<List<Float>> buyList = data.getBTCUSD().getBid();
+            List<List<Float>> sellList = data.getBTCUSD().getAsk();
 
             float maxQuan = 0;
             float minSell = 999999999;
@@ -122,7 +121,7 @@ public class CexActivity extends Activity {
             BarDataSet askChart = new  BarDataSet(askEntries, "Ask");
             askChart.setColor(Color.parseColor("#0523c1"));
 
-            BarChart chart = findViewById(R.id.barChart_cex);
+            BarChart chart = findViewById(R.id.barChart_exmo);
 
             BarData chartData = new BarData();
 
@@ -139,16 +138,16 @@ public class CexActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(Response<CEX_API> CEXResponse) {
-            super.onPostExecute(CEXResponse);
+        protected void onPostExecute(Response<EXMO_API> ExmoResponse) {
+            super.onPostExecute(ExmoResponse);
         }
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        if(cexAT != null){
-            cexAT.cancel(true);
+        if(exmoAT != null){
+            exmoAT.cancel(true);
         }
     }
 }

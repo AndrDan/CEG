@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
+        android:screenOrientation="portrait"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,9 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Exchanges.Exchanges_Activity.CexActivity"/>
-        <activity android:name=".Exchanges.Exchanges_Activity.BitstampActivity"/>
-        <activity android:name=".CEG.CegActivity"/>
+        <activity android:name=".Exchanges.Exchanges_Activity.CexActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Exchanges.Exchanges_Activity.EXMOActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Exchanges.Exchanges_Activity.GDAXActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Exchanges.Exchanges_Activity.BitstampActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Exchanges.Exchanges_Activity.CoinsBankActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CEG.CegActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

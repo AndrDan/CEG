@@ -123,7 +123,7 @@ public class BitstampActivity extends Activity {
 
             BarData chartData = new BarData();
 
-            chartData.setBarWidth(1f);
+            chartData.setBarWidth(0.5f);
             chartData.addDataSet(bidChart);
             chartData.addDataSet(askChart);
             chartData.setValueTextColor(Color.TRANSPARENT);

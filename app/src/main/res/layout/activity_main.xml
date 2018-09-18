@@ -32,7 +32,7 @@
         android:visibility="gone"/>
 
     <Button
-        android:id="@+id/ceg_btn"
+        android:id="@+id/exmo_btn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:onClick="onClick"
@@ -41,6 +41,43 @@
         android:layout_alignEnd="@+id/bitstamp_btn"
         android:textColor="@color/colorAccent"
         android:background="@color/colorPrimary"
-        android:text="exchanges" />
+        android:text="exmo"
+        />
+
+    <Button
+        android:id="@+id/gdax_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/exmo_btn"
+        android:layout_alignEnd="@+id/exmo_btn"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimary"
+        android:text="GDAX" />
+
+    <Button
+        android:id="@+id/coins_bank_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/gdax_btn"
+        android:layout_alignEnd="@+id/gdax_btn"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimary"
+        android:text="Coins Bank" />
+
+    <Button
+        android:id="@+id/ceg_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/coins_bank_btn"
+        android:layout_alignEnd="@+id/coins_bank_btn"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimary"
+        android:text="Profit" />
 
 </RelativeLayout>

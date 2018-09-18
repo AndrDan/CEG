@@ -197,31 +197,32 @@ public class MainOrderBook {
         CoinsBank_API coinsBank = getCoinsBankResponse();
         EXMO_API exmoAPI = getExmoResponse();
         GDAX_API gdaxAPI = getGdaxResponse();
-        LakeBTC_API lakeBTCAPI = getLakeBTCResponse();
+        //LakeBTC_API lakeBTCAPI = getLakeBTCResponse();
         addAllIfNotNull(bids, cexAPI.getBids());
         addAllIfNotNull(bids, bitstamp.getBids());
         addAllIfNotNull(bids, coinsBank.getBids());
         addAllIfNotNull(bids, exmoAPI.getBTCUSD().getBid());
         addAllIfNotNull(bids, gdaxAPI.getBids());
-        addAllIfNotNull(bids, lakeBTCAPI.getBids());
+        //addAllIfNotNull(bids, lakeBTCAPI.getBids());
 
         Collections.sort(bids, new ListFloatReverseComparator());
         bids.subList(100, bids.size()).clear();
         return bids;
     }
+
     public List<List<Float>> getAsks() {
         CEX_API cexAPI = getCexResponse();
         Bitstamp_API bitstamp = getBitstampResponse();
         CoinsBank_API coinsBank = getCoinsBankResponse();
         EXMO_API exmoAPI = getExmoResponse();
         GDAX_API gdaxAPI = getGdaxResponse();
-        LakeBTC_API lakeBTCAPI = getLakeBTCResponse();
+        //LakeBTC_API lakeBTCAPI = getLakeBTCResponse();
         addAllIfNotNull(asks, cexAPI.getAsks());
         addAllIfNotNull(asks, bitstamp.getAsks());
         addAllIfNotNull(asks, coinsBank.getAsks());
         addAllIfNotNull(asks, exmoAPI.getBTCUSD().getAsk());
         addAllIfNotNull(asks, gdaxAPI.getAsks());
-        addAllIfNotNull(asks, lakeBTCAPI.getAsks());
+        //addAllIfNotNull(asks, lakeBTCAPI.getAsks());
 
         Collections.sort(asks, new ListFloatComparator());
         asks.subList(100, asks.size()).clear();

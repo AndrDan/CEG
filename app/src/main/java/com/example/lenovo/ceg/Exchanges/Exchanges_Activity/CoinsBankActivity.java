@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.CoinsBankAPI.CoinsBank_API;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.GDAXAPI.GDAX_API;
 import com.example.lenovo.ceg.Exchanges.GetInterfaceExchanges;
-import com.example.lenovo.ceg.Exchanges.Exchanges_API.CEXAPI.CEX_API;
 import com.example.lenovo.ceg.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -25,42 +25,40 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CexActivity extends Activity {
+public class CoinsBankActivity extends Activity {
 
     GetInterfaceExchanges getInterface;
-    public CexAT cexAT = new CexAT();
+    public CoinsBankAT coinsBankAT = new CoinsBankAT();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cex_activity);
+        setContentView(R.layout.coins_bank_activity);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://cex.io")
+                .baseUrl("https://coinsbank.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         getInterface = retrofit.create(GetInterfaceExchanges.class);
-        cexAT.execute();
+        coinsBankAT.execute();
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-        if(cexAT == null) {
-            cexAT.execute();
+        if(coinsBankAT == null) {
+            coinsBankAT.execute();
         }
     }
 
-    class CexAT extends AsyncTask<Void, Response<CEX_API>, Response<CEX_API>> {
+    class CoinsBankAT extends AsyncTask<Void, Response<CoinsBank_API>, Response<CoinsBank_API>> {
 
         @Override
-        protected Response<CEX_API> doInBackground(Void... voids) {
-            Response<CEX_API> res = null;
+        protected Response<CoinsBank_API> doInBackground(Void... voids) {
+            Response<CoinsBank_API> res = null;
             while (!isCancelled()) {
                 try {
-                    String symbol1="BTC";
-                    String symbol2="USD";
-                    String depth="20";
-                    Call<CEX_API> responseCall = getInterface.getCexData(symbol1, symbol2, depth);
+                    String symbol1="BTCUSD";
+                    Call<CoinsBank_API> responseCall = getInterface.getCoinsBankData(symbol1);
                     res = responseCall.execute();
                     publishProgress(res);
                     Thread.sleep(3000);
@@ -72,10 +70,10 @@ public class CexActivity extends Activity {
         }
 
         @Override
-        protected void onProgressUpdate(Response<CEX_API>... CEXResponse) {
-            super.onProgressUpdate(CEXResponse);
-            CEX_API data = CEXResponse[0].body();
-            TextView tv = findViewById(R.id.chartDataView_cex);
+        protected void onProgressUpdate(Response<CoinsBank_API>... CoinsBankResponse) {
+            super.onProgressUpdate(CoinsBankResponse);
+            CoinsBank_API data = CoinsBankResponse[0].body();
+            TextView tv = findViewById(R.id.chartDataView_coinsBank);
             String listStr;
             List<BarEntry> bidEntries = new ArrayList<>();
             List<BarEntry> askEntries = new ArrayList<>();
@@ -122,7 +120,7 @@ public class CexActivity extends Activity {
             BarDataSet askChart = new  BarDataSet(askEntries, "Ask");
             askChart.setColor(Color.parseColor("#0523c1"));
 
-            BarChart chart = findViewById(R.id.barChart_cex);
+            BarChart chart = findViewById(R.id.barChart_coinsBank);
 
             BarData chartData = new BarData();
 
@@ -139,16 +137,16 @@ public class CexActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(Response<CEX_API> CEXResponse) {
-            super.onPostExecute(CEXResponse);
+        protected void onPostExecute(Response<CoinsBank_API> CoinsResponse) {
+            super.onPostExecute(CoinsResponse);
         }
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        if(cexAT != null){
-            cexAT.cancel(true);
+        if(coinsBankAT != null){
+            coinsBankAT.cancel(true);
         }
     }
 }

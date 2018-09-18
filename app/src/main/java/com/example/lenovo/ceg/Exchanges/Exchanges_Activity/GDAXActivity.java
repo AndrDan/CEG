@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.EXMOAPI.EXMO_API;
+import com.example.lenovo.ceg.Exchanges.Exchanges_API.GDAXAPI.GDAX_API;
 import com.example.lenovo.ceg.Exchanges.GetInterfaceExchanges;
-import com.example.lenovo.ceg.Exchanges.Exchanges_API.CEXAPI.CEX_API;
 import com.example.lenovo.ceg.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -25,42 +25,41 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CexActivity extends Activity {
+public class GDAXActivity extends Activity {
 
     GetInterfaceExchanges getInterface;
-    public CexAT cexAT = new CexAT();
+    public GdaxAT gdaxAT = new GdaxAT();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cex_activity);
+        setContentView(R.layout.gdax_activity);
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://cex.io")
+                .baseUrl("https://api.gdax.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         getInterface = retrofit.create(GetInterfaceExchanges.class);
-        cexAT.execute();
+        gdaxAT.execute();
     }
 
     @Override
     protected void onStart(){
         super.onStart();
-        if(cexAT == null) {
-            cexAT.execute();
+        if(gdaxAT == null) {
+            gdaxAT.execute();
         }
     }
 
-    class CexAT extends AsyncTask<Void, Response<CEX_API>, Response<CEX_API>> {
+    class GdaxAT extends AsyncTask<Void, Response<GDAX_API>, Response<GDAX_API>> {
 
         @Override
-        protected Response<CEX_API> doInBackground(Void... voids) {
-            Response<CEX_API> res = null;
+        protected Response<GDAX_API> doInBackground(Void... voids) {
+            Response<GDAX_API> res = null;
             while (!isCancelled()) {
                 try {
-                    String symbol1="BTC";
-                    String symbol2="USD";
-                    String depth="20";
-                    Call<CEX_API> responseCall = getInterface.getCexData(symbol1, symbol2, depth);
+                    String symbol1 = "BTC-USD";
+                    String level = "2";
+                    Call<GDAX_API> responseCall = getInterface.getGdaxData(symbol1, level);
                     res = responseCall.execute();
                     publishProgress(res);
                     Thread.sleep(3000);
@@ -72,10 +71,10 @@ public class CexActivity extends Activity {
         }
 
         @Override
-        protected void onProgressUpdate(Response<CEX_API>... CEXResponse) {
-            super.onProgressUpdate(CEXResponse);
-            CEX_API data = CEXResponse[0].body();
-            TextView tv = findViewById(R.id.chartDataView_cex);
+        protected void onProgressUpdate(Response<GDAX_API>... GdaxResponse) {
+            super.onProgressUpdate(GdaxResponse);
+            GDAX_API data = GdaxResponse[0].body();
+            TextView tv = findViewById(R.id.chartDataView_gdax);
             String listStr;
             List<BarEntry> bidEntries = new ArrayList<>();
             List<BarEntry> askEntries = new ArrayList<>();
@@ -122,7 +121,7 @@ public class CexActivity extends Activity {
             BarDataSet askChart = new  BarDataSet(askEntries, "Ask");
             askChart.setColor(Color.parseColor("#0523c1"));
 
-            BarChart chart = findViewById(R.id.barChart_cex);
+            BarChart chart = findViewById(R.id.barChart_gdax);
 
             BarData chartData = new BarData();
 
@@ -139,16 +138,16 @@ public class CexActivity extends Activity {
         }
 
         @Override
-        protected void onPostExecute(Response<CEX_API> CEXResponse) {
-            super.onPostExecute(CEXResponse);
+        protected void onPostExecute(Response<GDAX_API> GdaxResponse) {
+            super.onPostExecute(GdaxResponse);
         }
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        if(cexAT != null){
-            cexAT.cancel(true);
+        if(gdaxAT != null){
+            gdaxAT.cancel(true);
         }
     }
 }
